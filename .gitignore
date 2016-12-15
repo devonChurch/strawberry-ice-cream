@@ -1,4 +1,5 @@
 node_modules/
+data/
 */**.css.map
 */**.js.map
 npm-debug.log

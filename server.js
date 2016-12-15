@@ -10,32 +10,33 @@ mongoose.Promise = global.Promise;
 // mongoose.connect('localhost:27017/data');
 // mongoose.connect('http://localhost:27017/data');
 mongoose.connect('127.0.0.1:27017/data');
+
 const db = mongoose.connection;
 const transformerSchema = mongoose.Schema({
-    name: String,
-    autobot: Boolean
+	name: String,
+	autobot: Boolean,
 });
 const Transformer = mongoose.model('Transformer', transformerSchema);
 
 db.on('error', () => {
 
-    console.error.bind(console, 'connection error:')
+	console.error.bind(console, 'connection error:');
 
 });
 
 db.once('open', () => {
 
-    console.log('database (mongoose) connected');
+	console.log('database (mongoose) connected');
 
 });
 
 function addMultipleTransformers() {
 
-    const data = [
-        { name: 'Optimus Prime', autobot: true },
-        { name: 'Megatron', autobot: false },
-        { name: 'Star Scream', autobot: false }
-    ].map(addTransformer);
+	[
+		{ name: 'Optimus Prime', autobot: true },
+		{ name: 'Megatron', autobot: false },
+		{ name: 'Star Scream', autobot: false },
+	].map(addTransformer);
 
 }
 
@@ -43,15 +44,15 @@ function addTransformer(data) {
 
     // if (!verifyTransformerData()) return console.log('transformer data is incorrect');
 
-    var transformer = new Transformer(data);
+	var transformer = new Transformer(data);
 
-    transformer.save((error, transformer) => {
+	transformer.save((error, transformer) => {
 
-        if (error) return console.log('error saving transformer', error);
+		if (error) return console.log('error saving transformer', error);
 
-        console.log('saved transformer', transformer);
+		console.log('saved transformer', transformer);
 
-    });
+	});
 
 }
 
@@ -62,70 +63,75 @@ function verifyTransformerData({name, autobot}) {
 
 }
 
+// function *renderTransformers(res) {
+//
+// 	console.log('inside generator');
+//
+// 	const allTransformers = yield Transformer.find(); // findAllTransformers();
+//
+// 	console.log('allTransformers', allTransformers);
+//
+// 	res.send('Hello World');
+//
+// }
+
+
 function findAllTransformers() {
 
-    return Transformer.find().then(() => console.log('GOT TRANSFORMERS'));
-
-    // Transformer.find((error, transformer) => {
-    //
-    //     if (error) return console.erroror(error);
-    //     console.log(transformer);
-    //
-    // });
+	return Transformer.find();
 
 }
 
-function *renderTransformers(res) {
+function renderTransformerScaffolds(data) {
 
-    console.log('inside generator');
+	const scaffolds = data.map(({name}) => (`
+		<h2>${name}</h2>
+	`)).join('');
 
-    const allTransformers = yield findAllTransformers();
-
-    console.log('allTransformers', allTransformers);
-
-    res.send('Hello World');
+	return new Promise((resolve) => resolve(scaffolds));
 
 }
 
-// const transformers = findAllTransformers();
+function injectIntoHtmlScaffold(transformers) {
 
-// need new promise library
-// why not generic es6 promises?
+	const scaffold = (`
+		some html up top
+		<hr>
+		${transformers}
+		<hr>
+		some html down bottom
+	`);
 
-// DeprecationWarning: Mongoose: mpromise (mongoose's default promise library)
-// is deprecated, plug in your own promise library instead: http://mongoosejs.com/docs/promises.html
+	return new Promise((resolve) => resolve(scaffold));
 
-// res.send('Hello World');
+}
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-app.get('/', (req, res) => {
+app.get('/', (request, response) => {
 
-
-    renderTransformers(res).next();
+	findAllTransformers()
+		.then((data) => renderTransformerScaffolds(data))
+		.then((transformers) => injectIntoHtmlScaffold(transformers))
+		.then((html) => response.send(html));
 
 });
 
-// app.get('/', (req, res) => {
-//
-//     res.send('Hello World');
-//
-// });
+app.get('/bin/', (request, response) => {
 
-app.get('/bin/', (req, res) => {
+	response.send('Bin');
 
-    res.send('Bin');
+	console.log(request.query);
 
-    console.log(req.query);
-
-    addTransformer(req.query);
+	addTransformer(request.query);
 
 });
 
 app.listen(3000, () => {
 
-    console.log('Example app listening on port 3000!');
+	console.log('Example app listening on port 3000!');
 
 });
 
 // curl -i http://localhost:3000/
+// curl -i http://localhost:3000/bin/?name=bar&autobot=false
