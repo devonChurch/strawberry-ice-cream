@@ -43,7 +43,7 @@ module.exports = [
 			filename: 'client.js'
 		},
 		plugins: [
-			new ExtractTextPlugin('style.css')
+			new ExtractTextPlugin('client.css')
 		],
 		module: {
 			preLoaders: [preLoaderEslint],
