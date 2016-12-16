@@ -2,6 +2,10 @@ const {mongoose} = require('./mongoose');
 const transformerSchema = mongoose.Schema({
 	name: String,
 	autobot: Boolean,
+	// created_at    : { type: Date, required: true, default: Date.now }
+},
+{
+	timestamps: true
 });
 const Transformer = mongoose.model('Transformer', transformerSchema);
 
@@ -13,13 +17,15 @@ function addTransformer(data) {
 
 	const transformer = new Transformer(data);
 
-	transformer.save((error, transformer) => {
+	return transformer.save();
 
-		if (error) return console.log('error saving transformer', error);
-
-		console.log('saved transformer', transformer);
-
-	});
+	// transformer.save((error, transformer) => {
+	//
+	// 	if (error) return console.log('error saving transformer', error);
+	//
+	// 	console.log('saved transformer', transformer);
+	//
+	// });
 
 }
 
@@ -34,9 +40,29 @@ function findAllTransformers() {
 
 }
 
+// Tweet.findOne({}, {}, { sort: { 'created_at' : -1 } }, function(err, post) {
+//   console.log( post );
+// });
+
+function findLastTransformerEntry() {
+
+	// Transformer.findOne().sort({created_at: -1}).then((data) => {
+	// Transformer.findOne().sort('-date').then((data) => {
+	Transformer.findOne().sort('-updatedAt').then((data) => {
+
+		console.log('findLastTransformerEntry - data', data);
+
+	});
+
+
+	// var query = Person.findOne({ 'name.last': 'Ghost' });
+
+}
+
 module.exports = {
 	addTransformer,
-	findAllTransformers
+	findAllTransformers,
+	findLastTransformerEntry
 };
 
 // function renderTransformerScaffolds(data) {

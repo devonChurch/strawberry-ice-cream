@@ -1,35 +1,34 @@
-module.exports = (state) => (`
+module.exports = (state) => {
 
-	<!doctype html>
-	<html lang="en">
+	const doctype = '<!doctype html>';
+	const html = (
+		`<html lang="en">
 
-	    <head>
+			<head>
 
-	        <meta charset="utf-8">
-	        <meta http-equiv="x-ua-compatible" content="ie=edge">
-	        <title>Transformers</title>
-	        <meta name="description" content="">
-	        <meta name="viewport" content="width=device-width, initial-scale=1">
+				<meta charset="utf-8">
+				<meta http-equiv="x-ua-compatible" content="ie=edge">
+				<title>Transformers</title>
+				<meta name="description" content="">
+				<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	        <link rel="apple-touch-icon" href="apple-touch-icon.png">
-	        <!-- Place favicon.ico in the root directory -->
+				<script>window.__REDUX_STATE__ = ${JSON.stringify(state)};</script>
 
-	        <!-- <link rel="stylesheet" href="css/normalize.css"> -->
-	        <link rel="stylesheet" href="static/client.css">
-	        <!-- <script src="js/vendor/modernizr-2.8.3.min.js"></script> -->
+			</head>
 
-			<script>window.__REDUX_STATE__ = ${JSON.stringify(state)};</script>
+			<body>
 
-	    </head>
+				<h1>APP!</h1>
+				<div id="app"></div>
+				<script src="/client.js"></script>
 
-	    <body>
+			</body>
 
-			<h1>APP!</h1>
-			<div id="app"></div>
-	        <script src="static/client.js"></script>
+		</html>`
+	);
 
-	    </body>
+	// Forcing the doctype to butt right up as the first character on the first
+	// line to avoid a syntax error on the client.
+	return (`${doctype}\n${html}`);
 
-	</html>
-
-`);
+};

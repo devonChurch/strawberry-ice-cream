@@ -3,6 +3,8 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 const validate = require('webpack-validator');
 
+// console.log('webpack __dirname', __dirname); // /Users/devon-church/Documents/projects/strawberry-ice-cream
+
 var preLoaderEslint = {
     test: /\.js$/,
     loaders: ['eslint'],
@@ -39,7 +41,7 @@ module.exports = [
 		devtool: 'source-map',
 		entry: './client.js',
 		output: {
-			path: __dirname + '/dist/static',
+			path: __dirname + '/dist/public',
 			filename: 'client.js'
 		},
 		plugins: [
