@@ -1,9 +1,7 @@
-// var CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const autoprefixer = require('autoprefixer');
-const validate = require('webpack-validator');
-
-// console.log('webpack __dirname', __dirname); // /Users/devon-church/Documents/projects/strawberry-ice-cream
+// var CopyWebpackPlugin = require('copy-webpack-plugin');
+// const validate = require('webpack-validator');
 
 var preLoaderEslint = {
     test: /\.js$/,
@@ -67,6 +65,8 @@ module.exports = [
 			filename: 'server.js',
 			libraryTarget: 'commonjs'
 		},
+		// Addresses the error ```ERROR: You may need an appropriate loader to
+		// handle this file type.```
 		externals: [
 			/^(?!\.|\/).+/i,
 		],

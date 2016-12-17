@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const {addTransformer, findAllTransformers} = require('../mongo/transformer');
+const {addTransformer, findAllTransformers, filterNameAndId} = require('../mongo/transformer');
 const generateHtml = require('../universal/html-boilerplate');
 // const path = require('path');
 
@@ -48,22 +48,16 @@ app.use('/', express.static(cwdStart));
 
 app.get('/', (request, response) => {
 
-	// response.send(`
-	// 	<p>Hello</p>
-	// 	<img src="/kitten.jpg" alt="kitten">
-	// `);
-
-	// <img src="https://placekitten.com/g/200/300" alt="kitten">
-	// <script src="/temp.js"></script>
-
 	findAllTransformers()
-	// 	.then((data) => renderTransformerScaffolds(data))
-		.then((data) => generateHtml(data))
+		.then(filterNameAndId)
+		.then(generateHtml)
 		.then((html) => response.status(200).send(html));
 
 });
 
 app.get('/bin/', (request, response) => {
+
+	// curl -i http://localhost:3000/
 
 	const {pushLatestEntryToUsers} = require('../socketio/initialise');
 	const {query} = request;
@@ -78,11 +72,5 @@ app.get('/bin/', (request, response) => {
 });
 
 // app.listen(3000);
-
-// app.listen(3000, () => {
-//
-// 	console.log('Express app listening on port 3000!');
-//
-// });
 
 module.exports = app;
