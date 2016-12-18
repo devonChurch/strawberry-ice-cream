@@ -1,4 +1,4 @@
-module.exports = (state) => {
+module.exports = (state = []) => {
 
 	const doctype = '<!doctype html>';
 	const html = (

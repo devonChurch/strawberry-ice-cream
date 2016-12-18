@@ -8,14 +8,20 @@
     "start": "npm run mongo:start & npm run express:start",
     "build:production": "webpack --optimize-minimize",
     "build:development": "webpack --watch",
-	"express:start": "nodemon dist/server.js",
+    "express:start": "nodemon dist/server.js",
     "mongo:start": "mongod --dbpath=./database --port 27017 && mongo"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "debug": "^2.4.5",
+    "deep-freeze": "0.0.1",
     "express": "^4.14.0",
     "mongoose": "^4.7.2",
+    "react": "^15.3.0",
+    "react-dom": "^15.3.0",
+    "react-redux": "^4.4.5",
+    "redux": "^3.5.2",
     "socket.io": "^1.7.2",
     "socket.io-client": "^1.7.2"
   },

@@ -62,7 +62,7 @@ app.get('/bin/', (request, response) => {
 
 	// curl -i http://localhost:3000/
 
-	const {pushLatestEntryToUsers} = require('../socketio/initialise');
+	const {pushLatestEntryToUsers} = require('../socketio/send');
 	const {query} = request;
 	const message = `added transformer ${query.name} (${query.autobot ? 'autobot' : 'decepticon'}) to the database`;
 
