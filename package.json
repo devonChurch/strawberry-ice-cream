@@ -5,10 +5,11 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon --inspect dist/server.js",
+    "start": "npm run mongo:start & npm run express:start",
     "build:production": "webpack --optimize-minimize",
     "build:development": "webpack --watch",
-    "mongodb": "mongod --dbpath=./database --port 27017 && mongo"
+	"express:start": "nodemon dist/server.js",
+    "mongo:start": "mongod --dbpath=./database --port 27017 && mongo"
   },
   "author": "",
   "license": "ISC",

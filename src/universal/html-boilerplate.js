@@ -18,7 +18,7 @@ module.exports = (state) => {
 
 			<body>
 
-				<h1>APP!</h1>
+				<h1>APP =p</h1>
 				<div id="app"></div>
 				<script src="/client.js"></script>
 

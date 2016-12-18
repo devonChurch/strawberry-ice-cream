@@ -48,6 +48,9 @@ app.use('/', express.static(cwdStart));
 
 app.get('/', (request, response) => {
 
+	console.log('got "/" request');
+	// response.status(200).send('html')
+
 	findAllTransformers()
 		.then(filterNameAndId)
 		.then(generateHtml)

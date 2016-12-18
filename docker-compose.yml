@@ -1,0 +1,30 @@
+version: '2'
+
+services:
+
+  node:
+    container_name: strawb-node
+    image: devonchurch/strawberry-ice-cream
+    build: .
+    volumes:
+      - .:/usr/app
+    # environment:
+    #   - NODE_ENV=development
+    ports:
+      - "3000:3000"
+    networks:
+      - my-app-network
+
+  #No authentication is provided here - just a demo! Read the Dockerfile
+  #for more information about adding authentication.
+  mongodb:
+    container_name: strawb-mongo
+    image: mongo
+    ports:
+      - "27017:27017"
+    networks:
+      - my-app-network
+
+networks:
+  my-app-network:
+    driver: bridge

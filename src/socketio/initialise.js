@@ -3,7 +3,7 @@ const http = require('http').Server(express);
 const socket = require('socket.io')(http);
 const {findLastTransformerEntry, filterNameAndId} = require('../mongo/transformer');
 
-http.listen(8000, () => console.log('http server listening on port 3000'));
+http.listen(3000, () => console.log('http server listening on port 3000'));
 
 function pushLatestEntryToUsers() {
 
