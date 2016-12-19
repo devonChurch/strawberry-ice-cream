@@ -4,11 +4,23 @@ import TransformerItemContainer from '../transformer-item/container';
 
 class TransformerListContainer extends Component {
 
+	constructor() {
+
+		super();
+		this.renderTransformerItem = this.renderTransformerItem.bind(this);
+
+	}
+
 	renderTransformerItem(item) {
+
 
 		const handleClick = () => {
 
+			console.log('renderTransformerItem | this', this);
+
 			console.log(`cicked ${item.name}`);
+
+			this.props.fetchTransformerAllegiance(item._id);
 
 		}
 

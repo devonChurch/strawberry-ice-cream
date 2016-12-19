@@ -7,6 +7,13 @@ import TransformerListContainer from '../transformer-list/container';
 
 class AppContainer extends Component {
 
+	constructor() {
+
+		super();
+		this.fetchTransformerAllegiance = this.fetchTransformerAllegiance.bind(this);
+
+	}
+
 	componentDidMount() {
 
 		console.log('AppContainer | componentDidMount');
@@ -25,7 +32,17 @@ class AppContainer extends Component {
 
 	}
 
-	fetchTransformerAllegiance() {
+	fetchTransformerAllegiance(_id) {
+
+		console.log('fetchTransformerAllegiance | this', this);
+
+		this.props.dispatch({
+			type: action.FETCH_TRANSFORMER_ALLEGIANCE,
+			data: {
+				_id,
+				isFetching: true
+			}
+		});
 
 		// this.props.dispatch({
 		// 	type: action.FETCH_TRANSFORMER_ALLEGIANCE,
@@ -45,7 +62,8 @@ class AppContainer extends Component {
             <App>
 				<h1>Transformers</h1>
 				<TransformerListContainer
-					transformers={this.props.transformers}/>
+					transformers={this.props.transformers}
+					fetchTransformerAllegiance={this.fetchTransformerAllegiance}/>
             </App>
         );
 

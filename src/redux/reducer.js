@@ -9,6 +9,8 @@ import extendWithUiState from './default-state/extend-with-ui-state';
 // const transformerItemReducer = (state = {}, {type, data = {}}) => {
 function transformerItemsReducer(state = {}, {type, data = {}}) {
 
+	console.log('type', type);
+
 	deepFreeze(state);
 
 	switch (type) {
@@ -21,6 +23,10 @@ function transformerItemsReducer(state = {}, {type, data = {}}) {
 					extendWithUiState(data)
 				]
 			}
+
+		case action.UPDATE_TRANSFORMER_ALLEGIANCE:
+			console.log('data', data);
+			return state
 
 		default:
 			return state;

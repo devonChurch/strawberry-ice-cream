@@ -10,8 +10,6 @@ function injectUiState(data) {
 
 function extendWithUiState(data) {
 
-	console.log('extend data', data);
-
 	const isArray = Array.isArray(data);
 
 	switch (isArray) {
