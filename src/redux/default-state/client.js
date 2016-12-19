@@ -1,6 +1,12 @@
+import extendWithUiState from './extend-with-ui-state';
+
 function getDefaultState() {
 
-	return window.__REDUX_STATE__;
+	const {transformers} = window.__REDUX_STATE__;
+
+	return {
+		transformers: extendWithUiState(transformers)
+	};
 
 }
 

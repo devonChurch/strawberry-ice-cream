@@ -12,7 +12,11 @@ module.exports = (state = []) => {
 				<meta name="description" content="">
 				<meta name="viewport" content="width=device-width, initial-scale=1">
 
-				<script>window.__REDUX_STATE__ = ${JSON.stringify(state)};</script>
+				<script>
+					window.__REDUX_STATE__ = {
+						transformers: ${JSON.stringify(state)}
+					};
+				</script>
 
 			</head>
 

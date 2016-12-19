@@ -45,7 +45,6 @@ app.use('/', express.static(cwdStart));
 //   });
 // })
 
-
 app.get('/', (request, response) => {
 
 	console.log('got "/" request');

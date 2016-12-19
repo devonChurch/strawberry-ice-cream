@@ -5,7 +5,8 @@ socket.on('disconnect', () => console.log('socket disconnect'));
 
 function listenForDatabaseChanges(callback) {
 
-	socket.on('newTransformerEntry', (data) => console.log('newTransformerEntry', data));
+	// socket.on('newTransformerEntry', (data) => console.log('newTransformerEntry', data));
+	socket.on('newTransformerEntry', (data) => callback(data));
 
 }
 

@@ -2,7 +2,7 @@ const {mongoose} = require('./mongoose');
 const transformerSchema = mongoose.Schema(
 	{
 		name: String,
-		autobot: Boolean,
+		isAutobot: Boolean,
 	},
 	{
 		timestamps: true
@@ -20,7 +20,7 @@ function addTransformer(data) {
 
 }
 
-function verifyTransformerData({name, autobot}) {
+function verifyTransformerData({name, isAutobot}) {
 
 
 }
@@ -45,7 +45,7 @@ function extractNameAndId({_id, name}) {
 
 function filterNameAndId(data) {
 
-	// {"_id":"5853ba93b2fcae9d8e0d7ada","name":"banana","autobot":true,"__v":0}
+	// {"_id":"5853ba93b2fcae9d8e0d7ada","name":"banana","isAutobot":true,"__v":0}
 
 	const isArray = Array.isArray(data);
 
