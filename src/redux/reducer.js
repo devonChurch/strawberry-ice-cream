@@ -22,11 +22,34 @@ function transformerItemsReducer(state = {}, {type, data = {}}) {
 					...state.transformers,
 					extendWithUiState(data)
 				]
-			}
+			};
 
 		case action.UPDATE_TRANSFORMER_ALLEGIANCE:
-			console.log('data', data);
-			return state
+			console.log('UPDATE_TRANSFORMER_ALLEGIANCE', data);
+			return {
+				...state,
+				transformers: state.transformers.map((transformer) => {
+
+					console.log(`${transformer._id} === ${data._id} -> ${transformer._id === data._id} (isAutobot = ${data.isAutobot})`);
+
+					switch (transformer._id === data._id) {
+
+						case true:
+							return {
+								...transformer,
+								isAutobot: data.isAutobot,
+								isFetching: false,
+								isFetched: true
+							};
+
+						default:
+							return transformer;
+
+					}
+
+				})
+
+			};
 
 		default:
 			return state;

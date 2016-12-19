@@ -7,7 +7,6 @@ import rootSaga from './saga';
 function testReduxDevTools() {
 
 	return window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
-	// return window.devToolsExtension ? window.devToolsExtension() : undefined;
 
 }
 
@@ -23,23 +22,11 @@ function createReduxStore(sagaMiddleware) {
 		)
 	);
 
-	// return createStore(
-	// 	// combineReducers({
-	// 	// 	loginState: reducer.transformerItemReducer,
-	// 	// }),
-	// 	transformerItemsReducer,
-	// 	getDefaultState(),
-	// 	applyMiddleware(sagaMiddleware),
-	// 	// testReduxDevTools(),
-	// 	// applyMiddleware(reduxDevTools, sagaMiddleware)
-	// );
-
 }
 
 function integrateRendererIntoReduxStore(reactRenderSequence) {
 
 	const sagaMiddleware = createSagaMiddleware();
-	const reduxDevTools = testReduxDevTools();
 	const reduxStore = createReduxStore(sagaMiddleware);
 
 	// Render on state change.
@@ -52,14 +39,3 @@ function integrateRendererIntoReduxStore(reactRenderSequence) {
 }
 
 export default integrateRendererIntoReduxStore
-
-// const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-// const store = createStore(reducer, preloadedState, composeEnhancers(
-// 	applyMiddleware(...middleware)
-// ));
-
-// import rootSaga from './sagas'
-//
-// const sagaMiddleware = createSagaMiddleware()
-// const store = ...
-// sagaMiddleware.run(rootSaga)

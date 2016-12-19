@@ -4,19 +4,27 @@ import action from './action';
 
 // import createSagaMiddleware from 'redux-saga';
 
+
+// function
+
 // Our worker Saga: will perform the async increment task
-function* fetchTransformerAllegiance(data) {
+function* fetchTransformerAllegiance({data}) {
 
 
 	console.log('incrementAsync', data);
 	console.log(arguments);
 
-	yield delay(1000);
+	// yield delay(1000);
+	const response = yield fetch(`/bin/is-autobot/?_id=${data._id}`);
+	const {isAutobot} = yield response.json();
+
+	console.log('isAutobot', isAutobot);
+
 	yield put({
 		type: action.UPDATE_TRANSFORMER_ALLEGIANCE,
 		data: {
-			_id: 123456,
-			isAutobot: true
+			_id: data._id,
+			isAutobot
 		}
 	});
 

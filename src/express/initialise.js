@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const {addTransformer, findAllTransformers, filterNameAndId} = require('../mongo/transformer');
+const {addTransformer, findAllTransformers, filterNameAndId, filterIsAutobot, findAllegianceAgainstId} = require('../mongo/transformer');
 const generateHtml = require('../universal/html-boilerplate');
 // const path = require('path');
 
@@ -45,21 +45,34 @@ app.use('/', express.static(cwdStart));
 //   });
 // })
 
-app.get('/', (request, response) => {
-
-	console.log('got "/" request');
-	// response.status(200).send('html')
+function requestApp(request, response) {
 
 	findAllTransformers()
 		.then(filterNameAndId)
 		.then(generateHtml)
-		.then((html) => response.status(200).send(html));
+		.then((html) => response.send(html));
 
-});
+}
 
-app.get('/bin/', (request, response) => {
+function requestIsAutobot(request, response) {
 
-	// curl -i http://localhost:3000/
+	const {query} = request;
+	findAllegianceAgainstId(query)
+		.then(filterIsAutobot)
+		.then(({isAutobot}) => {
+
+			console.log('got back isAutobot', isAutobot);
+			// response.status(200).send(isAutobot)
+
+
+			response.setHeader('Content-Type', 'application/json');
+			response.send(JSON.stringify({isAutobot}));
+
+		});
+
+}
+
+function requestModifiy(request, response) {
 
 	const {pushLatestEntryToUsers} = require('../socketio/send');
 	const {query} = request;
@@ -70,6 +83,29 @@ app.get('/bin/', (request, response) => {
 
 	response.send(message);
 	console.log(message);
+
+}
+
+app.get('*', (request, response) => {
+
+	console.log(`got "(${request.path})" request`);
+	// curl -i http://localhost:3000/
+
+	switch (request.path) {
+
+		case '/':
+			return requestApp(request, response);
+
+		case '/bin/is-autobot/':
+			return requestIsAutobot(request, response);
+
+		case '/bin/modify/':
+			return requestModifiy(request, response);
+
+		default:
+			response.status(404).send('Not found');
+
+	}
 
 });
 

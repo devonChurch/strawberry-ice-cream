@@ -38,7 +38,7 @@ module.exports = [
 		context: __dirname + '/src',
 		devtool: 'source-map',
 		// entry: './client.js',
-		entry: ['babel-polyfill', './client.js'],
+		entry: ['whatwg-fetch', 'babel-polyfill', './client.js'],
 		output: {
 			path: __dirname + '/dist/public',
 			filename: 'client.js'

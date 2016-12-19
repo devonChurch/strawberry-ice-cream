@@ -2,6 +2,7 @@ function injectUiState(data) {
 
 	return {
 		...data,
+		isAutobot: null,
 		isFetching: false,
 		isFetched: false
 	};

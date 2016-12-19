@@ -16,8 +16,6 @@ class TransformerListContainer extends Component {
 
 		const handleClick = () => {
 
-			console.log('renderTransformerItem | this', this);
-
 			console.log(`cicked ${item.name}`);
 
 			this.props.fetchTransformerAllegiance(item._id);
@@ -29,6 +27,8 @@ class TransformerListContainer extends Component {
 				id={item._id}
 				name={item.name}
 				isAutobot={item.isAutobot}
+				isFetching={item.isFetching}
+				isFetched={item.isFetched}
 				handleClick={handleClick}/>
 		);
 

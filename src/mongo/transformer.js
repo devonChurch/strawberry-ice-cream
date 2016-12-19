@@ -37,6 +37,46 @@ function findLastTransformerEntry() {
 
 }
 
+function findAllegianceAgainstId({_id}) {
+
+	// const listing = Transformer.findOne({_id});
+	return Transformer.findOne({_id});
+
+	// console.log('_id', _id);
+	// console.log('listing', listing);
+	//
+	// return true;
+
+}
+
+function extractIsAutobot({isAutobot}) {
+
+	console.log('extractIsAutobot', isAutobot);
+
+	return {isAutobot};
+
+}
+
+function filterIsAutobot(data) {
+
+	console.log('filterIsAutobot', data);
+
+	// {"_id":"5853ba93b2fcae9d8e0d7ada","name":"banana","isAutobot":true,"__v":0}
+
+	const isArray = Array.isArray(data);
+
+	switch (isArray) {
+
+		case true:
+			return data.map(extractIsAutobot);
+
+		default:
+			return extractIsAutobot(data);
+
+	}
+
+}
+
 function extractNameAndId({_id, name}) {
 
 	return {_id, name};
@@ -65,5 +105,7 @@ module.exports = {
 	addTransformer,
 	findAllTransformers,
 	findLastTransformerEntry,
+	findAllegianceAgainstId,
+	filterIsAutobot,
 	filterNameAndId
 };
