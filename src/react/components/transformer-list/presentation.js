@@ -3,7 +3,9 @@ import React, {PropTypes} from 'react';
 function renderItem(item, i) {
 
 	return (
-		<li key={i}>
+		<li
+			className="TransformerList-item"
+			key={i}>
 			{item}
 		</li>
 	);
@@ -12,7 +14,7 @@ function renderItem(item, i) {
 function TransformerList(props) {
 
     return (
-        <ul>
+        <ul className="TransformerList">
 			{props.items.map(renderItem)}
 		</ul>
     );

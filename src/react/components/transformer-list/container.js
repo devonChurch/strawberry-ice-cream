@@ -14,10 +14,11 @@ class TransformerListContainer extends Component {
 	renderTransformerItem(item) {
 
 
-		const handleClick = () => {
+		const handleClick = (e) => {
 
 			console.log(`cicked ${item.name}`);
 
+			e.preventDefault();
 			this.props.fetchTransformerAllegiance(item._id);
 
 		}

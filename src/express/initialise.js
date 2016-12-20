@@ -62,9 +62,6 @@ function requestIsAutobot(request, response) {
 		.then(({isAutobot}) => {
 
 			console.log('got back isAutobot', isAutobot);
-			// response.status(200).send(isAutobot)
-
-
 			response.setHeader('Content-Type', 'application/json');
 			response.send(JSON.stringify({isAutobot}));
 
@@ -89,7 +86,6 @@ function requestModifiy(request, response) {
 app.get('*', (request, response) => {
 
 	console.log(`got "(${request.path})" request`);
-	// curl -i http://localhost:3000/
 
 	switch (request.path) {
 
@@ -97,9 +93,11 @@ app.get('*', (request, response) => {
 			return requestApp(request, response);
 
 		case '/bin/is-autobot/':
+			// curl -i http://localhost:3000/bin/is-autobot/?_id=1234567890
 			return requestIsAutobot(request, response);
 
 		case '/bin/modify/':
+			// curl -i http://localhost:3000/bin/modify/?name=starscream&isAutobot=false
 			return requestModifiy(request, response);
 
 		default:

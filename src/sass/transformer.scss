@@ -1,0 +1,238 @@
+@import url('https://fonts.googleapis.com/css?family=Exo:900');
+
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+$color-neutral: gray;
+$color-autobotRed: #C80000;
+$color-autobotBlue: blue;
+$color-decepticonPurple: #fE0042;
+$color-decepticonPink: #5500C8;
+$speed-modifier: 1;
+$speed-fast: #{0.25 * $speed-modifier}s;
+$speed-normal: #{0.5 * $speed-modifier}s;
+$speed-slow: #{1 * $speed-modifier}s;
+
+@mixin threeDimensionalText($attribute, $color, $className, $delay: 0s) {
+	margin: 0;
+	position: relative;
+	transform: translateY(-10px) scale(0.9);
+	transition: {
+		delay: $delay;
+		duration: $speed-normal;
+		property: opacity, transform;
+	};
+
+	&:before,
+	&:after {
+		content: attr(data-transformer-#{$attribute});
+		display: block;
+		left: 50%;
+		position: absolute;
+		top: 0;
+		transform: translate(-50%, 0) scale(1);
+		visibility: hidden;
+		z-index: -1;
+	}
+
+	.#{$className} & {
+		color: $color;
+		-webkit-text-stroke: 1.5px lighten($color, 30%);
+		transform: translateY(0) scale(1);
+
+		&:before,
+		&:after {
+			visibility: visible;
+			-webkit-text-stroke: 0;
+			transition: transform $speed-normal;
+			transition-delay: $delay;
+		}
+
+		&:before {
+			color: darken($color, 15%);
+			transform: translate(-50%, -5px) scale(0.95);
+		}
+
+		&:after {
+			color: darken($color, 25%);
+			transform: translate(-50%, -10px) scale(0.9);
+		}
+	}
+}
+
+@mixin threeDimensionalContainer($color, $className) {
+	$size: 200px;
+	background: lighten($color-neutral, 30%);
+	border-radius: 50%;
+	height: $size;
+	margin: auto;
+	position: relative;
+	transition: {
+		duration: $speed-slow;
+		property: background, opacity;
+	};
+	width: $size;
+
+	&,
+	&:before,
+	&:after {
+		border: 2px solid rgba(white, 0.3);
+	}
+
+	&:before,
+	&:after {
+		$size: 100%;
+		border-radius: 50%;
+		display: block;
+		content: '';
+		height: $size;
+		position: absolute;
+		transition: transform $speed-normal;
+		width: $size;
+
+	}
+
+	.#{$className} & {
+		background: darken($color, 30%);
+
+		&:before {
+			background: darken($color, 15%);
+			transform: scale(1.1);
+			z-index: -1;
+		}
+
+		&:after {
+			background: $color;
+			transform: scale(1.2);
+			z-index: -2;
+		}
+	}
+}
+
+@mixin allegianceSvg($color, $className) {
+	$size: 70%;
+	fill: $color;
+	height: $size;
+	left: 50%;
+	opacity: 0;
+	position: absolute;
+	stroke: lighten($color, 30%);
+	stroke-width: 10;
+	top: 50%;
+	transform: translate(-50%, -40%) scale(0.9);
+	width: $size;
+
+	.#{$className} & {
+		opacity: 1;
+		transform: translate(-50%, -50%) scale(1);
+		transition: {
+			duration: $speed-normal;
+			property: opacity, transform;
+		}
+	}
+}
+
+.TransformerList {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.TransformerList-item {
+
+}
+
+.TransformerItem {
+	cursor: pointer;
+	color: $color-neutral;
+	display: block;
+	font: {
+		family: 'Exo', sans-serif;
+		weight: 900;
+		size: 40px;
+	}
+	line-height: 0.8;
+	overflow: hidden;
+	padding: 50px 20px;
+	position: relative;
+	text: {
+		align: center;
+		decoration: none;
+		transform: uppercase;
+	}
+
+	&:before {
+		$size: 100px;
+		background: black;
+		border-radius: 50%;
+		box-shadow: 0 0 50px 50px black;
+		bottom: 0;
+		content: '';
+		display: block;
+		height: $size;
+		left: 50%;
+		opacity: 0;
+		position: absolute;
+		transform: translate(-50%, 25%) scaleY(0.1);
+		transition: opacity $speed-normal;
+		width: $size;
+	}
+
+	&.isFetched:before {
+		opacity: 0.2;
+	}
+
+	&:after {
+		$size: 500px;
+		background: rgba(white, 0.25);
+		content: '';
+		display: block;
+		height: $size;
+		left: -30%;
+		position: absolute;
+		top: -50%;
+		transform: rotate(45deg);
+		width: $size;
+		z-index: 100;
+	}
+}
+
+.TransformerItem-logoContainer {
+	@include threeDimensionalContainer($color-autobotBlue, isAutobot);
+	@include threeDimensionalContainer($color-decepticonPink, isDecepticon);
+
+	.TransformerItem:not(.isFetched):hover & {
+		background: lighten($color-neutral, 10%);
+	}
+}
+
+.TransformerItem-autobotLogo {
+	@include allegianceSvg($color-autobotRed, isAutobot);
+}
+
+.TransformerItem-decepticonLogo {
+	@include allegianceSvg($color-decepticonPurple, isDecepticon);
+}
+
+.TransformerItem-name {
+	@include threeDimensionalText(name, $color-autobotRed, isAutobot);
+	@include threeDimensionalText(name, $color-decepticonPurple, isDecepticon);
+	font-size: 50px;
+	white-space: nowrap;
+	z-index: 1;
+}
+
+.TransformerItem-allegiance {
+	@include threeDimensionalText(allegiance, $color-autobotBlue, isAutobot, $speed-fast);
+	@include threeDimensionalText(allegiance, $color-decepticonPink, isDecepticon, $speed-fast);
+	opacity: 0;
+
+	.isFetched & {
+		opacity: 1;
+	}
+}

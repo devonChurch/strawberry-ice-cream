@@ -8,8 +8,6 @@ const app = document.getElementById('app');
 
 function reactRenderSequence(reduxStore) {
 
-	console.log('reactRenderSequence', reduxStore);
-
 	render(
 		<Provider store={reduxStore}>
 			<AppContainer/>

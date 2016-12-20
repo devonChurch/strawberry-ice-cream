@@ -16,12 +16,7 @@ class AppContainer extends Component {
 
 	componentDidMount() {
 
-		console.log('AppContainer | componentDidMount');
-
 		listenForDatabaseChanges((data) => {
-
-			console.log('got new transformer data', data);
-			console.log('this', this);
 
 			this.props.dispatch({
 				type: action.RECEIVE_NEW_TRANSFORMER_DATA,
@@ -34,8 +29,6 @@ class AppContainer extends Component {
 
 	fetchTransformerAllegiance(_id) {
 
-		console.log('fetchTransformerAllegiance | this', this);
-
 		this.props.dispatch({
 			type: action.FETCH_TRANSFORMER_ALLEGIANCE,
 			data: {
@@ -44,23 +37,12 @@ class AppContainer extends Component {
 			}
 		});
 
-		// this.props.dispatch({
-		// 	type: action.FETCH_TRANSFORMER_ALLEGIANCE,
-		// 	data: {
-		// 		_id:
-		// 		isFetching: true
-		// 	}
-		// });
-
 	}
 
 	render() {
 
-		console.log('this', this);
-
-        return (
+		return (
             <App>
-				<h1>Transformers</h1>
 				<TransformerListContainer
 					transformers={this.props.transformers}
 					fetchTransformerAllegiance={this.fetchTransformerAllegiance}/>
@@ -71,6 +53,5 @@ class AppContainer extends Component {
 
 }
 
-// export default AppContainer;
 const mapStateToProps = (state) => state;
 export default connect(mapStateToProps)(AppContainer);

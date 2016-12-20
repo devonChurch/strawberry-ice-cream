@@ -1,5 +1,3 @@
-console.log('version 0.0.1');
-
 require('./express/initialise');
 console.log('express has initialised');
 

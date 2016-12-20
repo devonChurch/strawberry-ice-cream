@@ -39,13 +39,7 @@ function findLastTransformerEntry() {
 
 function findAllegianceAgainstId({_id}) {
 
-	// const listing = Transformer.findOne({_id});
 	return Transformer.findOne({_id});
-
-	// console.log('_id', _id);
-	// console.log('listing', listing);
-	//
-	// return true;
 
 }
 

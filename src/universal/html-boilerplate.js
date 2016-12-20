@@ -12,6 +12,8 @@ module.exports = (state = []) => {
 				<meta name="description" content="">
 				<meta name="viewport" content="width=device-width, initial-scale=1">
 
+				<link rel="stylesheet" href="/client.css">
+
 				<script>
 					window.__REDUX_STATE__ = {
 						transformers: ${JSON.stringify(state)}
@@ -22,7 +24,6 @@ module.exports = (state = []) => {
 
 			<body>
 
-				<h1>APP =p</h1>
 				<div id="app"></div>
 				<script src="/client.js"></script>
 
