@@ -81,6 +81,14 @@ function requestModifiy(request, response) {
 	response.send(message);
 	console.log(message);
 
+	// http://localhost:3000/bin/modify/?name=Optimus Prime&isAutobot=true
+	// http://localhost:3000/bin/modify/?name=Megatron&isAutobot=false
+	// http://localhost:3000/bin/modify/?name=Bumblebee&isAutobot=true
+	// http://localhost:3000/bin/modify/?name=Starscream&isAutobot=false
+	// http://localhost:3000/bin/modify/?name=Ironhide&isAutobot=true
+	// http://localhost:3000/bin/modify/?name=Soundwave&isAutobot=false
+	// http://localhost:3000/bin/modify/?name=Ratchet&isAutobot=true
+
 }
 
 app.get('*', (request, response) => {
