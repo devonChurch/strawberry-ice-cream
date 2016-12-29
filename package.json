@@ -9,7 +9,7 @@
     "build:production": "webpack --optimize-minimize",
     "build:development": "webpack --watch",
     "express:start": "nodemon dist/server.js",
-    "mongo:start": "mongod --dbpath=./database --port 27017 && mongo"
+    "mongo:start": "mongod --dbpath=/data/db --port 27017 && mongo"
   },
   "author": "",
   "license": "ISC",

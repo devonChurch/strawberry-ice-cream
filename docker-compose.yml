@@ -11,23 +11,41 @@ services:
     # environment:
     #   - NODE_ENV=development
     ports:
-      - "3000:3000"
+      - '3000:3000'
     networks:
-      - my-app-network
+      - strawb-network
+    depends_on:
+      - 'mongodb'
 
   #No authentication is provided here - just a demo! Read the Dockerfile
   #for more information about adding authentication.
   mongodb:
     container_name: strawb-mongo
     image: mongo
+    volumes:
+    #   - ./db:/data/db
+      - strawb-data:/data/db
+    # command:
+    #   - echo 'running after volumes (2)'
     ports:
-      - "27017:27017"
+      - '27017:27017'
     networks:
-      - my-app-network
+      - strawb-network
+    # command: bash -c echo 'custom mongo command'
+    # command:
+    #   - bash -c echo 'custom mongo command'
+
+  # database:
+  #   container_name: strawb-data
+
 
 networks:
-  my-app-network:
+  strawb-network:
     driver: bridge
+
+volumes:
+    strawb-data:
+        driver: 'local'
 
 # version: '2'
 #

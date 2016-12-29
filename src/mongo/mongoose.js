@@ -3,8 +3,12 @@ const database = mongoose.connection;
 
 mongoose.Promise = global.Promise; // Use native ES6 promises NOT the built in out of date pollyfll.
 // mongoose.connect('mongodb://127.0.0.1:27017/database');
-mongoose.connect('mongodb://mongodb:27017/database');
-// mongoose.connect('mongodb://mongo:27017/database');
+// mongoose.connect('mongodb://127.0.0.1:27017');
+// mongoose.connect('mongodb://127.0.0.1:27017/db');
+mongoose.connect('mongodb://mongodb:27017');
+// mongoose.connect('mongodb://127.0.0.1:27017');
+//
+// mongoose.connect('mongodb://mongo:27017');
 
 
 
