@@ -12,6 +12,6 @@ COPY package.json $CONTAINER_PATH
 
 RUN npm install
 
-EXPOSE 3000
+EXPOSE 80
 
 ENTRYPOINT ["npm", "run", "express:start"]
