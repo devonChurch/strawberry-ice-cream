@@ -1,0 +1,349 @@
+@import url(https://fonts.googleapis.com/css?family=Exo:900);html {
+  box-sizing: border-box; }
+
+*, *:before, *:after {
+  box-sizing: inherit; }
+
+.TransformerList {
+  list-style: none;
+  margin: 0;
+  padding: 0; }
+
+.TransformerItem {
+  cursor: pointer;
+  color: gray;
+  display: block;
+  font-family: 'Exo', sans-serif;
+  font-weight: 900;
+  font-size: 40px;
+  line-height: 0.8;
+  overflow: hidden;
+  padding: 50px 20px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase; }
+  .TransformerItem:before {
+    background: black;
+    border-radius: 50%;
+    box-shadow: 0 0 50px 50px black;
+    bottom: 0;
+    content: '';
+    display: block;
+    height: 100px;
+    left: 50%;
+    opacity: 0;
+    position: absolute;
+    -webkit-transform: translate(-50%, 25%) scaleY(0.1);
+            transform: translate(-50%, 25%) scaleY(0.1);
+    -webkit-transition: opacity 0.5s;
+    transition: opacity 0.5s;
+    width: 100px; }
+  .TransformerItem.isFetched:before {
+    opacity: 0.2; }
+  .TransformerItem:after {
+    background: rgba(255, 255, 255, 0.25);
+    content: '';
+    display: block;
+    height: 500px;
+    left: -30%;
+    position: absolute;
+    top: -50%;
+    -webkit-transform: rotate(45deg);
+            transform: rotate(45deg);
+    width: 500px;
+    z-index: 100; }
+
+.TransformerItem-logoContainer {
+  background: #cdcdcd;
+  border-radius: 50%;
+  height: 200px;
+  margin: auto;
+  position: relative;
+  -webkit-transition-duration: 1s;
+          transition-duration: 1s;
+  -webkit-transition-property: background, opacity;
+  transition-property: background, opacity;
+  width: 200px;
+  background: #cdcdcd;
+  border-radius: 50%;
+  height: 200px;
+  margin: auto;
+  position: relative;
+  transition-duration: 1s;
+  transition-property: background, opacity;
+  width: 200px; }
+  .TransformerItem-logoContainer, .TransformerItem-logoContainer:before, .TransformerItem-logoContainer:after {
+    border: 2px solid rgba(255, 255, 255, 0.3); }
+  .TransformerItem-logoContainer:before, .TransformerItem-logoContainer:after {
+    border-radius: 50%;
+    display: block;
+    content: '';
+    height: 100%;
+    position: absolute;
+    -webkit-transition: -webkit-transform 0.5s;
+    transition: -webkit-transform 0.5s;
+    transition: transform 0.5s;
+    transition: transform 0.5s, -webkit-transform 0.5s;
+    width: 100%; }
+  .isAutobot .TransformerItem-logoContainer {
+    background: #000066; }
+    .isAutobot .TransformerItem-logoContainer:before {
+      background: #0000b3;
+      -webkit-transform: scale(1.1);
+              transform: scale(1.1);
+      z-index: -1; }
+    .isAutobot .TransformerItem-logoContainer:after {
+      background: blue;
+      -webkit-transform: scale(1.2);
+              transform: scale(1.2);
+      z-index: -2; }
+  .TransformerItem-logoContainer, .TransformerItem-logoContainer:before, .TransformerItem-logoContainer:after {
+    border: 2px solid rgba(255, 255, 255, 0.3); }
+  .TransformerItem-logoContainer:before, .TransformerItem-logoContainer:after {
+    border-radius: 50%;
+    display: block;
+    content: '';
+    height: 100%;
+    position: absolute;
+    -webkit-transition: -webkit-transform 0.5s;
+    transition: -webkit-transform 0.5s;
+    transition: transform 0.5s;
+    transition: transform 0.5s, -webkit-transform 0.5s;
+    width: 100%; }
+  .isDecepticon .TransformerItem-logoContainer {
+    background: #14002f; }
+    .isDecepticon .TransformerItem-logoContainer:before {
+      background: #34007c;
+      -webkit-transform: scale(1.1);
+              transform: scale(1.1);
+      z-index: -1; }
+    .isDecepticon .TransformerItem-logoContainer:after {
+      background: #5500C8;
+      -webkit-transform: scale(1.2);
+              transform: scale(1.2);
+      z-index: -2; }
+  .TransformerItem:not(.isFetched):hover .TransformerItem-logoContainer {
+    background: #9a9a9a; }
+
+.TransformerItem-autobotLogo {
+  fill: #C80000;
+  height: 70%;
+  left: 50%;
+  opacity: 0;
+  position: absolute;
+  stroke: #ff6262;
+  stroke-width: 10;
+  top: 50%;
+  -webkit-transform: translate(-50%, -40%) scale(0.9);
+          transform: translate(-50%, -40%) scale(0.9);
+  width: 70%; }
+  .isAutobot .TransformerItem-autobotLogo {
+    opacity: 1;
+    -webkit-transform: translate(-50%, -50%) scale(1);
+            transform: translate(-50%, -50%) scale(1);
+    -webkit-transition-duration: 0.5s;
+            transition-duration: 0.5s;
+    -webkit-transition-property: opacity, -webkit-transform;
+    transition-property: opacity, -webkit-transform;
+    transition-property: opacity, transform;
+    transition-property: opacity, transform, -webkit-transform; }
+
+.TransformerItem-decepticonLogo {
+  fill: #fE0042;
+  height: 70%;
+  left: 50%;
+  opacity: 0;
+  position: absolute;
+  stroke: #ff98b3;
+  stroke-width: 10;
+  top: 50%;
+  -webkit-transform: translate(-50%, -40%) scale(0.9);
+          transform: translate(-50%, -40%) scale(0.9);
+  width: 70%; }
+  .isDecepticon .TransformerItem-decepticonLogo {
+    opacity: 1;
+    -webkit-transform: translate(-50%, -50%) scale(1);
+            transform: translate(-50%, -50%) scale(1);
+    -webkit-transition-duration: 0.5s;
+            transition-duration: 0.5s;
+    -webkit-transition-property: opacity, -webkit-transform;
+    transition-property: opacity, -webkit-transform;
+    transition-property: opacity, transform;
+    transition-property: opacity, transform, -webkit-transform; }
+
+.TransformerItem-name {
+  margin: 0;
+  position: relative;
+  -webkit-transform: translateY(-10px) scale(0.9);
+          transform: translateY(-10px) scale(0.9);
+  -webkit-transition-delay: 0s;
+          transition-delay: 0s;
+  -webkit-transition-duration: 0.5s;
+          transition-duration: 0.5s;
+  -webkit-transition-property: opacity, -webkit-transform;
+  transition-property: opacity, -webkit-transform;
+  transition-property: opacity, transform;
+  transition-property: opacity, transform, -webkit-transform;
+  margin: 0;
+  position: relative;
+  transform: translateY(-10px) scale(0.9);
+  transition-delay: 0s;
+  transition-duration: 0.5s;
+  transition-property: opacity, transform;
+  font-size: 50px;
+  white-space: nowrap;
+  z-index: 1; }
+  .TransformerItem-name:before, .TransformerItem-name:after {
+    content: attr(data-transformer-name);
+    display: block;
+    left: 50%;
+    position: absolute;
+    top: 0;
+    -webkit-transform: translate(-50%, 0) scale(1);
+            transform: translate(-50%, 0) scale(1);
+    visibility: hidden;
+    z-index: -1; }
+  .isAutobot .TransformerItem-name {
+    color: #C80000;
+    -webkit-text-stroke: 1.5px #ff6262;
+    -webkit-transform: translateY(0) scale(1);
+            transform: translateY(0) scale(1); }
+    .isAutobot .TransformerItem-name:before, .isAutobot .TransformerItem-name:after {
+      visibility: visible;
+      -webkit-text-stroke: 0;
+      -webkit-transition: -webkit-transform 0.5s;
+      transition: -webkit-transform 0.5s;
+      transition: transform 0.5s;
+      transition: transform 0.5s, -webkit-transform 0.5s;
+      -webkit-transition-delay: 0s;
+              transition-delay: 0s; }
+    .isAutobot .TransformerItem-name:before {
+      color: #7c0000;
+      -webkit-transform: translate(-50%, -5px) scale(0.95);
+              transform: translate(-50%, -5px) scale(0.95); }
+    .isAutobot .TransformerItem-name:after {
+      color: #490000;
+      -webkit-transform: translate(-50%, -10px) scale(0.9);
+              transform: translate(-50%, -10px) scale(0.9); }
+  .TransformerItem-name:before, .TransformerItem-name:after {
+    content: attr(data-transformer-name);
+    display: block;
+    left: 50%;
+    position: absolute;
+    top: 0;
+    -webkit-transform: translate(-50%, 0) scale(1);
+            transform: translate(-50%, 0) scale(1);
+    visibility: hidden;
+    z-index: -1; }
+  .isDecepticon .TransformerItem-name {
+    color: #fE0042;
+    -webkit-text-stroke: 1.5px #ff98b3;
+    -webkit-transform: translateY(0) scale(1);
+            transform: translateY(0) scale(1); }
+    .isDecepticon .TransformerItem-name:before, .isDecepticon .TransformerItem-name:after {
+      visibility: visible;
+      -webkit-text-stroke: 0;
+      -webkit-transition: -webkit-transform 0.5s;
+      transition: -webkit-transform 0.5s;
+      transition: transform 0.5s;
+      transition: transform 0.5s, -webkit-transform 0.5s;
+      -webkit-transition-delay: 0s;
+              transition-delay: 0s; }
+    .isDecepticon .TransformerItem-name:before {
+      color: #b2002e;
+      -webkit-transform: translate(-50%, -5px) scale(0.95);
+              transform: translate(-50%, -5px) scale(0.95); }
+    .isDecepticon .TransformerItem-name:after {
+      color: #7f0021;
+      -webkit-transform: translate(-50%, -10px) scale(0.9);
+              transform: translate(-50%, -10px) scale(0.9); }
+
+.TransformerItem-allegiance {
+  margin: 0;
+  position: relative;
+  -webkit-transform: translateY(-10px) scale(0.9);
+          transform: translateY(-10px) scale(0.9);
+  -webkit-transition-delay: 0.25s;
+          transition-delay: 0.25s;
+  -webkit-transition-duration: 0.5s;
+          transition-duration: 0.5s;
+  -webkit-transition-property: opacity, -webkit-transform;
+  transition-property: opacity, -webkit-transform;
+  transition-property: opacity, transform;
+  transition-property: opacity, transform, -webkit-transform;
+  margin: 0;
+  position: relative;
+  transform: translateY(-10px) scale(0.9);
+  transition-delay: 0.25s;
+  transition-duration: 0.5s;
+  transition-property: opacity, transform;
+  opacity: 0; }
+  .TransformerItem-allegiance:before, .TransformerItem-allegiance:after {
+    content: attr(data-transformer-allegiance);
+    display: block;
+    left: 50%;
+    position: absolute;
+    top: 0;
+    -webkit-transform: translate(-50%, 0) scale(1);
+            transform: translate(-50%, 0) scale(1);
+    visibility: hidden;
+    z-index: -1; }
+  .isAutobot .TransformerItem-allegiance {
+    color: blue;
+    -webkit-text-stroke: 1.5px #9999ff;
+    -webkit-transform: translateY(0) scale(1);
+            transform: translateY(0) scale(1); }
+    .isAutobot .TransformerItem-allegiance:before, .isAutobot .TransformerItem-allegiance:after {
+      visibility: visible;
+      -webkit-text-stroke: 0;
+      -webkit-transition: -webkit-transform 0.5s;
+      transition: -webkit-transform 0.5s;
+      transition: transform 0.5s;
+      transition: transform 0.5s, -webkit-transform 0.5s;
+      -webkit-transition-delay: 0.25s;
+              transition-delay: 0.25s; }
+    .isAutobot .TransformerItem-allegiance:before {
+      color: #0000b3;
+      -webkit-transform: translate(-50%, -5px) scale(0.95);
+              transform: translate(-50%, -5px) scale(0.95); }
+    .isAutobot .TransformerItem-allegiance:after {
+      color: navy;
+      -webkit-transform: translate(-50%, -10px) scale(0.9);
+              transform: translate(-50%, -10px) scale(0.9); }
+  .TransformerItem-allegiance:before, .TransformerItem-allegiance:after {
+    content: attr(data-transformer-allegiance);
+    display: block;
+    left: 50%;
+    position: absolute;
+    top: 0;
+    -webkit-transform: translate(-50%, 0) scale(1);
+            transform: translate(-50%, 0) scale(1);
+    visibility: hidden;
+    z-index: -1; }
+  .isDecepticon .TransformerItem-allegiance {
+    color: #5500C8;
+    -webkit-text-stroke: 1.5px #a562ff;
+    -webkit-transform: translateY(0) scale(1);
+            transform: translateY(0) scale(1); }
+    .isDecepticon .TransformerItem-allegiance:before, .isDecepticon .TransformerItem-allegiance:after {
+      visibility: visible;
+      -webkit-text-stroke: 0;
+      -webkit-transition: -webkit-transform 0.5s;
+      transition: -webkit-transform 0.5s;
+      transition: transform 0.5s;
+      transition: transform 0.5s, -webkit-transform 0.5s;
+      -webkit-transition-delay: 0.25s;
+              transition-delay: 0.25s; }
+    .isDecepticon .TransformerItem-allegiance:before {
+      color: #34007c;
+      -webkit-transform: translate(-50%, -5px) scale(0.95);
+              transform: translate(-50%, -5px) scale(0.95); }
+    .isDecepticon .TransformerItem-allegiance:after {
+      color: #1f0049;
+      -webkit-transform: translate(-50%, -10px) scale(0.9);
+              transform: translate(-50%, -10px) scale(0.9); }
+  .isFetched .TransformerItem-allegiance {
+    opacity: 1; }
+
+/*# sourceMappingURL=client.css.map*/
