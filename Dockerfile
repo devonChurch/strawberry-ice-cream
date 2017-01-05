@@ -6,7 +6,7 @@ ENV CONTAINER_PATH /usr/app
 WORKDIR $CONTAINER_PATH
 
 ADD package.json /tmp/package.json
-RUN cd /tmp && npm install
+RUN cd /tmp && npm install --production
 RUN mkdir -p $CONTAINER_PATH && cp -a /tmp/node_modules $CONTAINER_PATH
 
 EXPOSE 80
