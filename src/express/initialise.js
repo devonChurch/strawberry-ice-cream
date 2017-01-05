@@ -52,6 +52,8 @@ function requestApp(request, response) {
 		.then(generateHtml)
 		.then((html) => response.send(html));
 
+	// response.send('hello');
+
 }
 
 function requestIsAutobot(request, response) {

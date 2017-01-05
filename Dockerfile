@@ -8,10 +8,10 @@ RUN mkdir $CONTAINER_PATH
 
 WORKDIR $CONTAINER_PATH
 
-COPY package.json $CONTAINER_PATH
+COPY ./ $CONTAINER_PATH
 
 RUN npm install
 
 EXPOSE 80
 
-ENTRYPOINT ["npm", "run", "express:start"]
+ENTRYPOINT ["npm", "run", "express:start:production"]
