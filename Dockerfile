@@ -4,11 +4,14 @@ MAINTAINER Devon Church
 
 ENV CONTAINER_PATH /usr/app
 WORKDIR $CONTAINER_PATH
+RUN mkdir -p $CONTAINER_PATH
 
-ADD package.json /tmp/package.json
-RUN cd /tmp && npm install --production
-RUN mkdir -p $CONTAINER_PATH && cp -a /tmp/node_modules $CONTAINER_PATH
+COPY ./package.json $CONTAINER_PATH
+RUN cd $CONTAINER_PATH \
+	&& npm install --production
+
+COPY ./dist $CONTAINER_PATH/dist
 
 EXPOSE 80
 
-ENTRYPOINT ["npm", "run", "express:start:production"]
+ENTRYPOINT ["npm", "start"]

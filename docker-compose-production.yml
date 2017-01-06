@@ -5,13 +5,9 @@ services:
   node:
     container_name: strawb-node
     image: devonchurch/strawberry-ice-cream
-    cpu_shares: 100
-    mem_limit: 262144000
     build: .
-    # volumes:
-    #   - .:/usr/app
     # environment:
-    #   - NODE_ENV=development
+    #   - NODE_ENV=production
     ports:
       - '80:3000'
     networks:
@@ -24,11 +20,9 @@ services:
   mongodb:
     container_name: strawb-mongo
     image: mongo
-    cpu_shares: 100
-    mem_limit: 262144000
-    # volumes:
+    volumes:
     #   - ./db:/data/db
-    #   - strawb-data:/data/db
+      - strawb-data:/data/db
     # command:
     #   - echo 'running after volumes (2)'
     ports:

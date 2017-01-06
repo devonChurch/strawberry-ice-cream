@@ -5,11 +5,10 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npm run mongo:start:development & npm run express:start:development",
-    "build:production": "webpack --optimize-minimize",
+    "start": "npm run express:start",
+    "build:production": "webpack -p",
     "build:development": "webpack --watch",
-    "express:start:development": "nodemon dist/server.js",
-	"express:start:production": "node dist/server.js",
+	"express:start": "nodemon dist/server.js",
     "mongo:start:development": "mongod --dbpath=./db --port 27017 && mongo",
     "mongo:start:production": "mongod --dbpath=/data/db --port 27017 && mongo"
   },
@@ -27,7 +26,8 @@
     "redux-saga": "^0.13.0",
     "socket.io": "^1.7.2",
     "socket.io-client": "^1.7.2",
-    "whatwg-fetch": "^2.0.1"
+    "whatwg-fetch": "^2.0.1",
+	"nodemon": "^1.11.0"
   },
   "devDependencies": {
     "autoprefixer": "^6.4.0",
@@ -52,7 +52,6 @@
     "eslint-plugin-react": "^6.4.1",
     "extract-text-webpack-plugin": "^1.0.1",
     "node-sass": "^3.8.0",
-    "nodemon": "^1.11.0",
     "postcss-loader": "^0.9.1",
     "sass-loader": "^4.0.0",
     "style-loader": "^0.13.1",
