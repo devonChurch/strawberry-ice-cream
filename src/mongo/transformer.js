@@ -10,9 +10,20 @@ const transformerSchema = mongoose.Schema(
 );
 const Transformer = mongoose.model('Transformer', transformerSchema);
 
-function addTransformer(data) {
+function checkTransformerRelevance({name, isAutobot}) {
 
-	// if (!verifyTransformerData()) return console.log('transformer data is incorrect');
+	console.log(`checkTransformerRelevance, name = ${name} | isAutobot = ${isAutobot}`);
+
+	return new Promise((resolve, reject) => {
+
+		if (name && isAutobot) resolve({name, isAutobot});
+		else reject('invalid data set please try again');
+
+	});
+
+}
+
+function addTransformer(data) {
 
 	const transformer = new Transformer(data);
 
@@ -20,7 +31,27 @@ function addTransformer(data) {
 
 }
 
-function verifyTransformerData({name, isAutobot}) {
+function checkTransformerExistence({name, isAutobot}) {
+
+	console.log(`checkTransformerExistence, name = ${name} | isAutobot = ${isAutobot}`);
+
+	return new Promise((resolve, reject) => {
+
+		console.log('made new promise');
+
+		Transformer
+			.findOne({name})
+			.then((data) => {
+
+				console.log('got back existance data', data);
+
+				if (data) reject('transformer alredady exists');
+				else resolve({name, isAutobot});
+
+			});
+
+	});
+
 
 
 }
@@ -96,6 +127,8 @@ function filterNameAndId(data) {
 }
 
 module.exports = {
+	checkTransformerRelevance,
+	checkTransformerExistence,
 	addTransformer,
 	findAllTransformers,
 	findLastTransformerEntry,

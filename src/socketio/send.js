@@ -8,7 +8,7 @@ http.listen(port, () => console.log(`http server listening on port ${port}`));
 
 function pushLatestEntryToUsers() {
 
-	findLastTransformerEntry()
+	return findLastTransformerEntry()
 		.then((data) => {
 
 			const filteredData = filterNameAndId(data);

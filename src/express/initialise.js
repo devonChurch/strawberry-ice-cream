@@ -1,49 +1,12 @@
 const express = require('express');
 const app = express();
-const {addTransformer, findAllTransformers, filterNameAndId, filterIsAutobot, findAllegianceAgainstId} = require('../mongo/transformer');
+const {checkTransformerRelevance, checkTransformerExistence, addTransformer, findAllTransformers, filterNameAndId, filterIsAutobot, findAllegianceAgainstId} = require('../mongo/transformer');
 const generateHtml = require('../universal/html-boilerplate');
-// const path = require('path');
 
-// app.use('/', express.static('/public'));
-// app.use('/static', express.static(__dirname + '/public'));
-// app.use(express.static('/public'));
-// console.log(path.join(__dirname, 'public'));
-// app.use(express.static(__dirname + '/public'));
-// app.use(express.static('/public'));
-// app.use(express.static('public'));
-// app.use(express.static(__dirname + '/public'));
 
-// const path = require('path');
-// app.use('/', express.static(path.join(__dirname, '/public')));
-// app.use('/public', express.static(path.join(__dirname, '/public')));
-// app.use(express.static(path.join(__dirname, '/public')));
-// app.use(express.static(path.join(__dirname, 'public')));
-// app.use(express.static(path.resolve(__dirname, 'public')));
-// app.use('/public', express.static(path.join(__dirname, '/public')));
-//
+// Must be called from the NPM script to lock the cwd as the root app directory.
 const cwdStart = `${process.cwd()}/dist/public`;
 app.use('/', express.static(cwdStart));
-
-// console.log(path.join(__dirname, 'public'));
-
-// const fs = require('fs');
-// const kitten = fs.readFileSync(path.join(__dirname, '/public/kitten.jpg'));
-// console.log('kitten', kitten);
-// const kittenPath = path.join(__dirname, '/public');
-
-// console.log(`path.join(__dirname, '/public'`, path.join(__dirname, '/public'));
-// console.log(`path.resolve(__dirname, '/public'`, path.resolve(__dirname, '/public'));
-// console.log('__filename', __filename);
-// console.log('__dirname', __dirname);
-// console.log('process.cwd()', process.cwd());
-// console.log('cwdStart', cwdStart);
-//
-// const kittenPath = cwdStart; // path.join(__dirname, '/');
-// fs.readdir(kittenPath, (err, files) => {
-//   files.forEach(file => {
-//     console.log(file);
-//   });
-// })
 
 function requestApp(request, response) {
 
@@ -51,8 +14,6 @@ function requestApp(request, response) {
 		.then(filterNameAndId)
 		.then(generateHtml)
 		.then((html) => response.send(html));
-
-	// response.send('hello');
 
 }
 
@@ -71,17 +32,24 @@ function requestIsAutobot(request, response) {
 
 }
 
+function sendModificationStatus(response, status) {
+
+	response.send(status);
+	console.log(status);
+
+}
+
 function requestModifiy(request, response) {
 
 	const {pushLatestEntryToUsers} = require('../socketio/send');
 	const {query} = request;
-	const message = `added transformer ${query.name} (${query.autobot ? 'autobot' : 'decepticon'}) to the database`;
 
-	addTransformer(query)
-		.then(pushLatestEntryToUsers);
-
-	response.send(message);
-	console.log(message);
+	checkTransformerRelevance(query)
+		.then(checkTransformerExistence)
+		.then(addTransformer)
+		.then(pushLatestEntryToUsers)
+		.then(() => sendModificationStatus(response, `added transformer ${query.name} (${query.autobot ? 'autobot' : 'decepticon'}) to the database`))
+		.catch((error) => sendModificationStatus(response, error));
 
 	// http://localhost:3000/bin/modify/?name=Optimus Prime&isAutobot=true
 	// http://localhost:3000/bin/modify/?name=Megatron&isAutobot=false
