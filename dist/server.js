@@ -49,10 +49,10 @@
 	__webpack_require__(1);
 	console.log('express has initialised');
 	
-	__webpack_require__(7);
+	__webpack_require__(8);
 	console.log('socketio has initialised');
 	
-	__webpack_require__(10);
+	__webpack_require__(11);
 	console.log('mongo has initialised');
 
 /***/ },
@@ -71,9 +71,12 @@
 	    findAllTransformers = _require.findAllTransformers,
 	    filterNameAndId = _require.filterNameAndId,
 	    filterIsAutobot = _require.filterIsAutobot,
-	    findAllegianceAgainstId = _require.findAllegianceAgainstId;
+	    findAllegianceAgainstId = _require.findAllegianceAgainstId,
+	    seedDatabase = _require.seedDatabase;
 	
-	var generateHtml = __webpack_require__(6);
+	var generateHtml = __webpack_require__(7);
+	
+	console.log('seedDatabase (initilise)', seedDatabase);
 	
 	// Must be called from the NPM script to lock the cwd as the root app directory.
 	var cwdStart = process.cwd() + '/dist/public';
@@ -106,7 +109,7 @@
 	}
 	
 	function requestModifiy(request, response) {
-		var _require2 = __webpack_require__(7),
+		var _require2 = __webpack_require__(8),
 		    pushLatestEntryToUsers = _require2.pushLatestEntryToUsers;
 	
 		var query = request.query;
@@ -169,6 +172,7 @@
 	var _require = __webpack_require__(4),
 	    mongoose = _require.mongoose;
 	
+	var seedData = __webpack_require__(6);
 	var transformerSchema = mongoose.Schema({
 		name: String,
 		isAutobot: Boolean
@@ -287,6 +291,16 @@
 		}
 	}
 	
+	function seedWithTransformers() {
+	
+		console.log('seeding database with preset transformers');
+		console.log('seedData', seedData);
+		seedData.forEach(function (data) {
+	
+			checkTransformerExistence(data).then(addTransformer);
+		});
+	}
+	
 	module.exports = {
 		checkTransformerRelevance: checkTransformerRelevance,
 		checkTransformerExistence: checkTransformerExistence,
@@ -295,7 +309,8 @@
 		findLastTransformerEntry: findLastTransformerEntry,
 		findAllegianceAgainstId: findAllegianceAgainstId,
 		filterIsAutobot: filterIsAutobot,
-		filterNameAndId: filterNameAndId
+		filterNameAndId: filterNameAndId,
+		seedWithTransformers: seedWithTransformers
 	};
 
 /***/ },
@@ -308,9 +323,10 @@
 	var database = mongoose.connection;
 	
 	mongoose.Promise = global.Promise; // Use native ES6 promises NOT the built in out of date pollyfll.
+	
 	// mongoose.connect('mongodb://127.0.0.1:27017/database');
-	// mongoose.connect('mongodb://127.0.0.1:27017');
 	// mongoose.connect('mongodb://127.0.0.1:27017/db');
+	// mongoose.connect('mongodb://127.0.0.1:27017');
 	
 	// "mongodb" = the name of the Docker image name.
 	mongoose.connect('mongodb://mongodb:27017');
@@ -325,8 +341,13 @@
 	database.on('error', function () {
 		return console.log('database (mongoose) connection error');
 	});
+	
 	database.once('open', function () {
-		return console.log('database (mongoose) connected');
+		var _require = __webpack_require__(3),
+		    seedWithTransformers = _require.seedWithTransformers;
+	
+		console.log('database (mongoose) connected');
+		seedWithTransformers();
 	});
 	
 	module.exports = {
@@ -346,6 +367,37 @@
 
 	'use strict';
 	
+	var seedData = [{
+		name: 'Optimus Prime',
+		isAutobot: true
+	}, {
+		name: 'Megatron',
+		isAutobot: false
+	}, {
+		name: 'Bumblebee',
+		isAutobot: true
+	}, {
+		name: 'Starscream',
+		isAutobot: false
+	}, {
+		name: 'Ironhide',
+		isAutobot: true
+	}, {
+		name: 'Soundwave',
+		isAutobot: false
+	}, {
+		name: 'Ratchet',
+		isAutobot: true
+	}];
+	
+	module.exports = seedData;
+
+/***/ },
+/* 7 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
 	module.exports = function () {
 		var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
 	
@@ -359,14 +411,14 @@
 	};
 
 /***/ },
-/* 7 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var express = __webpack_require__(1);
-	var http = __webpack_require__(8).Server(express);
-	var socket = __webpack_require__(9)(http);
+	var http = __webpack_require__(9).Server(express);
+	var socket = __webpack_require__(10)(http);
 	var port = 3000;
 	
 	var _require = __webpack_require__(3),
@@ -392,19 +444,19 @@
 	};
 
 /***/ },
-/* 8 */
+/* 9 */
 /***/ function(module, exports) {
 
 	module.exports = require("http");
 
 /***/ },
-/* 9 */
+/* 10 */
 /***/ function(module, exports) {
 
 	module.exports = require("socket.io");
 
 /***/ },
-/* 10 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

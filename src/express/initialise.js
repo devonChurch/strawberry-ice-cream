@@ -1,8 +1,9 @@
 const express = require('express');
 const app = express();
-const {checkTransformerRelevance, checkTransformerExistence, addTransformer, findAllTransformers, filterNameAndId, filterIsAutobot, findAllegianceAgainstId} = require('../mongo/transformer');
+const {checkTransformerRelevance, checkTransformerExistence, addTransformer, findAllTransformers, filterNameAndId, filterIsAutobot, findAllegianceAgainstId, seedDatabase} = require('../mongo/transformer');
 const generateHtml = require('../universal/html-boilerplate');
 
+console.log('seedDatabase (initilise)', seedDatabase);
 
 // Must be called from the NPM script to lock the cwd as the root app directory.
 const cwdStart = `${process.cwd()}/dist/public`;

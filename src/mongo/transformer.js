@@ -1,4 +1,5 @@
 const {mongoose} = require('./mongoose');
+const seedData = require('./seed');
 const transformerSchema = mongoose.Schema(
 	{
 		name: String,
@@ -126,6 +127,20 @@ function filterNameAndId(data) {
 
 }
 
+
+function seedWithTransformers() {
+
+	console.log('seeding database with preset transformers');
+	console.log('seedData', seedData);
+	seedData.forEach((data) => {
+
+		checkTransformerExistence(data)
+			.then(addTransformer);
+
+	});
+
+}
+
 module.exports = {
 	checkTransformerRelevance,
 	checkTransformerExistence,
@@ -134,5 +149,6 @@ module.exports = {
 	findLastTransformerEntry,
 	findAllegianceAgainstId,
 	filterIsAutobot,
-	filterNameAndId
+	filterNameAndId,
+	seedWithTransformers
 };

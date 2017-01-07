@@ -1,6 +1,6 @@
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const autoprefixer = require('autoprefixer');
-// var CopyWebpackPlugin = require('copy-webpack-plugin');
+// const CopyWebpackPlugin = require('copy-webpack-plugin');
 // const validate = require('webpack-validator');
 
 var preLoaderEslint = {
@@ -72,9 +72,9 @@ module.exports = [
 			/^(?!\.|\/).+/i,
 		],
 		// plugins: [
-		//     new CopyWebpackPlugin([
-		//         { from:  './feed.json', to: './feed.json' }
-		//     ])
+		// 	new CopyWebpackPlugin([
+		// 		{ from:  './seed.json', to: './seed.json' }
+		// 	])
 		// ],
 		module: {
 			preLoaders: [preLoaderEslint],
