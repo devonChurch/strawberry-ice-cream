@@ -4,7 +4,7 @@ services:
 
   node:
     container_name: strawb-node
-    image: devonchurch/strawberry-ice-cream
+    image: 486484741372.dkr.ecr.ap-southeast-2.amazonaws.com/strawberry-ice-cream
     build: .
     volumes:
       - .:/usr/app
