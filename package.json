@@ -1,19 +1,24 @@
 {
-  "name": "mongodb-test",
+  "name": "strawberry-ice-cream",
   "version": "1.0.0",
-  "description": "",
+  "description": "A Node app POC using Docker on AWS",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npm run express:start",
     "build:production": "webpack -p",
     "build:development": "webpack --watch",
-	"express:start": "nodemon dist/server.js",
-    "mongo:start:development": "mongod --dbpath=./db --port 27017 && mongo",
-    "mongo:start:production": "mongod --dbpath=/data/db --port 27017 && mongo"
+	"express:start": "nodemon dist/server.js"
   },
-  "author": "",
-  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/devonChurch/strawberry-ice-cream.git"
+  },
+  "author": "Devon Church",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/devonChurch/strawberry-ice-cream/issues"
+  },
+  "homepage": "https://github.com/devonChurch/strawberry-ice-cream#readme",
   "dependencies": {
     "debug": "^2.4.5",
     "deep-freeze": "0.0.1",
