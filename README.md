@@ -1,8 +1,10 @@
-# Strawberry Ice Cream
+# Strawberry Ice Cream 🍓 😁 🍦 😋 🍨
 
-A Node app POC using Docker on AWS
+A POC using **_Docker_**, **_Sockets_**, **_Node.js_** and **_MongoDB_** on AWS.
 
-## Installation
+![transformers](https://user-images.githubusercontent.com/15273233/50936689-957b8300-14d5-11e9-91d4-36030f72d003.gif)
+
+## Installation 🤖
 **(Local development)**
 
 - Clone this repository
@@ -33,7 +35,7 @@ docker-compose up --build
 
 - Go to the exposed localhost port 80 in your [browser](http://localhost) to view the app running inside Docker
 
-## Deployment
+## Deployment ⚙
 **(AWS production)**
 
 - SSH into your EC2 instance
@@ -71,7 +73,7 @@ docker-compose -f docker-compose-production.yml up --build
 
 - Find the Public DNS for your [EC2](https://aws.amazon.com/ec2/) instance to see the application running in your browser
 
-## Add to database
+## Add to database 📋
 You can add Transformers characters at any time to a running app instance by hitting the *modify* end point. You will need to supply two key value pairs (a *name* string and an *isAutobot* boolean).
 
 An example is outlined below:
@@ -85,6 +87,6 @@ Once data has been successfully added to the database all active users browser i
 - You cannot create a character based on a name that already exists in the database.
 - When the app first initialises we seed the database with a few Transformers for you to play with =)
 
-## License
+## License 📜
 
 MIT
